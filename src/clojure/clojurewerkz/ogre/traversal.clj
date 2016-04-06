@@ -12,7 +12,7 @@
 
 (defn out
   [^GraphTraversal traversal & edge-labels]
-  (. traversal out (util/keywords-to-str-array edge-labels)))
+  (.out traversal (util/keywords-to-str-array edge-labels)))
 
 (defn outE
   [^GraphTraversal traversal & edge-labels]
@@ -21,6 +21,11 @@
 (defn outV
   [^GraphTraversal traversal]
   (. traversal outV))
+
+(defn in
+  [^GraphTraversal traversal & edge-labels]
+  (.in traversal (util/keywords-to-str-array edge-labels)))
+
 
 (defn has-id
   [^GraphTraversal traversal & ids]

@@ -60,7 +60,7 @@
    (if (clojure.core/and (string-or-keyword k) (string-or-keyword pred) (string-or-keyword v))
      (. t has (cast-param k) (cast-param pred) (cast-param v))
      (if-let [c (f-to-compare pred)]
-       (typed-traversal .has t (cast-param k) ^Compare c v)
+       (typed-traversal .has t (cast-param k) ^Compare (c v))
        (typed-traversal .has t (cast-param k) (f-to-bipredicate pred) v)))))
 
 (defn has-not

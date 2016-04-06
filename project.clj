@@ -4,7 +4,7 @@
   :license {:name "Eclipse Public License"
             :url "http://www.eclipse.org/legal/epl-v10.html"}
   :aot :all
-  :dependencies [[org.clojure/clojure "1.6.0"]
+  :dependencies [[org.clojure/clojure "1.7.0"]
                  [potemkin "0.3.3"]
                  [org.apache.tinkerpop/gremlin-core "3.0.1-incubating"]
                  [org.apache.tinkerpop/gremlin-test "3.0.1-incubating"  :scope "test" :exclusions [org.slf4j/slf4j-api]]

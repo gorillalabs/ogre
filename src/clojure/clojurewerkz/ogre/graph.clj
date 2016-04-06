@@ -31,7 +31,7 @@
 (defn new-transaction
   "Creates a new transaction based on the given graph object."
   [^Graph g]
-  (-> g (.tx) (.create)))
+  (-> g (.tx) (.open)))
 
 (defn commit
   "Commits all changes to the graph."

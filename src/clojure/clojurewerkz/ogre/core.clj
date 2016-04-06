@@ -1,7 +1,7 @@
 (ns clojurewerkz.ogre.core
   (:refer-clojure :exclude [filter and or range count iterate next map loop reverse group-by key shuffle])
   (:require [potemkin :as po]
-            [clojurewerkz.ogre.util :as util :refer (keywords-to-str-array typed-traversal)]
+            [clojurewerkz.ogre.util :as util :refer (keywords-to-str-array typed-traversal ensure-traversal-source)]
             [clojurewerkz.ogre.filter :as filter]
             [clojurewerkz.ogre.map :as map]
             [clojurewerkz.ogre.traversal :as traversal]
@@ -23,7 +23,7 @@
                ;;       " direction and returns the vertices.")
                ([t#] (~direction t# []))
                ([t# labels#]
-                (typed-traversal ~j1 t# (keywords-to-str-array labels#))))
+                (typed-traversal ~j1 (ensure-traversal-source t#) (keywords-to-str-array labels#))))
              (defn ~short
                [& args#]
                (apply ~direction args#))

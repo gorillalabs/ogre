@@ -6,26 +6,31 @@
 
 (defmacro typed-traversal
   [method ^Traversal t & args]
-    `(cond
-       (instance? GraphTraversal ~t) (~method ~(vary-meta t assoc :tag `GraphTraversal) ~@args)))
+  `(cond
+    (instance? GraphTraversal ~t) (~method ~(vary-meta t assoc :tag `GraphTraversal) ~@args)))
 
 ;TODO this should probably be temporary
+(defn- make-traversal-source [g]
+  (.V (.traversal g) (to-array [])))
+
 (defn ensure-traversal-source
-  "takes a graph or traversal source, and returns a traversal source"
+  "takes a graph, vertex or traversal source, and returns a traversal source"
   [g]
-  (if (or (instance? Graph g) (instance? Vertex g))
-    (.traversal g)
-    g))
+  (if (instance? Graph g)
+    (make-traversal-source g)
+    (if (instance? Vertex g)
+      (make-traversal-source (.graph g)) 
+      g)))
 
 (defn as
   "Assigns a name to the previous step in a traversal."
-  [^Traversal t label]
-  (typed-traversal .as t ^String (name label)))
+  [^Traversal t label & labels]
+  (typed-traversal .as t ^String (name label) (into-array String labels)))
 
 (defmacro query
   "Starts a query."
   [xs & body]
-  `(-> ~xs ~@body))
+  `(-> (ensure-traversal-source ~xs) ~@body))
 
 (defmacro subquery
   "Starts a subquery."

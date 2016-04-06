@@ -65,7 +65,9 @@
   ([^Traversal t]
     (typed-traversal .by t))
   ([^Traversal t arg]
-    (typed-traversal .by t arg)))
+   (if (keyword? arg)
+     (typed-traversal .by t (name arg))
+     (typed-traversal .by t arg))))
 
 ;; orderBy
 
@@ -82,7 +84,7 @@
 (defn properties
   "Gets the properties of an element."
   ([^Traversal t & keys]
-    (typed-traversal .properties t (keywords-to-str-array keys))))
+    (typed-traversal .values t (keywords-to-str-array keys))))
 
 ;; propertyMap
 
