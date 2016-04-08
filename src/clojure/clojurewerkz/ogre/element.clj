@@ -52,10 +52,12 @@
 
 (defn assoc!
   "Adds properties with the specified keys and values to an element."
-  [^Element elem map]
-  (doseq [kv map]
-    (.property elem (name (key kv)) (val kv)))
-  elem)
+  ([^Element elem key val] (.property elem (name key) val))
+  ([^Element elem key val & kvs]
+   (assoc! elem key val)
+   (doseq [kv (partition 2 kvs)]
+     (.property elem (name (first kv)) (last kv)))
+   elem))
 
 (defn dissoc!
   "Removes properties with the specified keys from an element."
