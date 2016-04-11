@@ -16,6 +16,7 @@
 (po/import-fn el/assoc!)
 (po/import-fn el/dissoc!)
 (po/import-fn el/clear!)
+(po/import-fn el/merge!)
 
 ;;
 ;;Transaction management
@@ -24,7 +25,7 @@
 (defn refresh
   "Goes and grabs the edge from the graph again. Useful for \"refreshing\" stale edges."
   [^Graph g ^Edge edge]
-  (.next (.E g (into-array [(.id edge)]))))
+  (.next (.E (.traversal g) (into-array [(.id edge)]))))
 
 ;;
 ;; Removal methods
@@ -50,14 +51,15 @@
 (defn find-by-id
   "Retrieves edges by id from the graph."
   [^Graph g & ids]
-  (if (= 1 (count ids))
-    (try (.next (.E g (into-array ids))) (catch Exception e nil))
-    (t/into-vec! (.E g (into-array ids)))))
+  (let [result (.E (.traversal g) (into-array ids))]
+    (if (= 1 (count ids))
+      (if (.hasNext result) (.next result) nil)
+      (t/into-vec! result))))
 
 (defn get-all-edges
   "Returns all edges."
   [^Graph g]
-  (.E g (into-array [])))
+  (.E (.traversal g) (into-array [])))
 
 (defn ^Vertex get-vertex
   "Get the vertex of the edge in a certain direction."
@@ -128,7 +130,7 @@
   ([^Vertex v1 label ^Vertex v2 data]
     (if-let [^Edge edges (edges-between v1 label v2)]
       (do
-        (doseq [^Edge edge edges] (assoc! edge data)) edges)
+        (doseq [^Edge edge edges] (merge! edge data)) edges)
        #{(connect! v1 label v2 data)})))
 
 (defn unique-upconnect!

@@ -7,15 +7,15 @@
 (deftest test-get-group-count-step
   (testing "g.V().out('created').groupCount{it.get().value('name')}"
     (let [g (u/classic-tinkergraph)
-          group (q/query (v/get-all-vertices g)
-                         (q/--> [:created])
+          group (q/query (q/V g)
+                         (q/--> :created)
                          (q/get-group-count! #(v/get % :name)))]
       (is (= group {"lop" 3 "ripple" 1})))))
 
 (deftest test-group-count
   (testing "g.V().has('age').values('age').groupCount()"
     (let [g (u/classic-tinkergraph)
-          group (q/query (v/get-all-vertices g)
+          group (q/query (q/V g)
                          (q/has :age)
                          (q/values :age)
                          q/group-count
@@ -26,7 +26,7 @@
 
   (testing "g.V().has('age').groupCount{it.get().value('age')}"
     (let [g (u/classic-tinkergraph)
-          group (q/query (v/get-all-vertices g)
+          group (q/query (q/V g)
                          (q/has :age)
                          (q/group-count #(v/get % :age))
                          q/into-vec!

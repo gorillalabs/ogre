@@ -8,7 +8,7 @@
 (deftest test-subgraph-step
   (testing "g.v(1).outE.subgraph(e->e.label()=='knows').cap()"
     (let [g (u/classic-tinkergraph)
-          elem (v/find-by-id g (int 1))
+          elem (q/V g (int 1))
           sg (q/query elem
                q/-E>
                (q/subgraph #(= (e/label-of %) :knows))

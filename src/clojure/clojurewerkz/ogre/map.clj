@@ -47,8 +47,8 @@
 
 (defmacro match
   "Pattern match traversals from current step onwards. Can introduce new labels."
-  [^Traversal t start-label & matches]
-  `(typed-traversal .match ~t (name ~start-label)
+  [^Traversal t & matches]
+  `(typed-traversal .match ~t 
                     (into-array ~(vec (for [[label m] (partition 2 matches)]
                                         `(-> (anon-traversal)
                                            (as ~label)

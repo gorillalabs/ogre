@@ -54,7 +54,9 @@
 (defn next!
   "Returns the next object in the traversal."
   ([^Traversal t]
-   (.next t))
+   (if (.hasNext t)
+     (.next t)
+     nil))
   ([^Traversal t i]
    (.next t i)))
 

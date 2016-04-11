@@ -52,7 +52,9 @@
 
 (defn assoc!
   "Adds properties with the specified keys and values to an element."
-  ([^Element elem key val] (.property elem (name key) val))
+  ([^Element elem key val]
+   (.property elem (name key) val)
+   elem)
   ([^Element elem key val & kvs]
    (assoc! elem key val)
    (doseq [kv (partition 2 kvs)]
@@ -68,4 +70,27 @@
 (defn clear!
   "Removes all properties from an element."
   [^Element elem]
-  (apply dissoc! (cons elem (keys elem))))
+  (apply dissoc! (cons elem (.keys elem))))
+
+(defn merge! [^Element element & property-maps]
+  (let [properties (flatten (seq (apply merge property-maps)))]
+    (if (empty? properties)
+      element
+      (apply assoc! element properties))))
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

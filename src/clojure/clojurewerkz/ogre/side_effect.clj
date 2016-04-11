@@ -1,6 +1,7 @@
 (ns clojurewerkz.ogre.side-effect
   (:refer-clojure :exclude [group-by count])
-  (:import (org.apache.tinkerpop.gremlin.process.traversal Traversal Traverser))
+  (:import (org.apache.tinkerpop.gremlin.process.traversal Traversal Traverser)
+           (org.apache.tinkerpop.gremlin.process.traversal.dsl.graph GraphTraversal))
   (:require [clojurewerkz.ogre.traversal :as t]
             [clojurewerkz.ogre.util :refer (f-to-function f-to-consumer f-to-predicate typed-traversal)]))
 
@@ -30,6 +31,12 @@
   [^Traversal t f]
   (typed-traversal .sideEffect t (f-to-consumer f)))
 
+(defn group
+  ([^GraphTraversal t] (typed-traversal .group t)))
+
+(defn by
+  ([^GraphTraversal t] (typed-traversal .by t)))
+
 (defn group-by
   "Group objects by key function. Optionally transform each objects by value function and aggregate resultes by reduce function."
   ([^Traversal t keyfn]
@@ -37,7 +44,7 @@
   ([^Traversal t keyfn valfn]
    (group-by t keyfn valfn identity))
   ([^Traversal t keyfn valfn reducefn]
-   (typed-traversal .groupBy t (f-to-function keyfn) (f-to-function valfn) (f-to-function reducefn))))
+   (typed-traversal .group t (f-to-function keyfn) (f-to-function valfn) (f-to-function reducefn))))
 
 (defn group-count
   "Returns the count of the objects.

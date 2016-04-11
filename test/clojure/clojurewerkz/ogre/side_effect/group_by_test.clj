@@ -4,10 +4,12 @@
             [clojurewerkz.ogre.vertex :as v]
             [clojurewerkz.ogre.test-util :as u]))
 
+
+;; TODO implement group by
 (deftest test-get-grouped-by
   (testing "g.V().groupBy{it.get().value('lang','')}{it.get().value('name','')}"
     (let [g (u/classic-tinkergraph)
-          grouped (q/query (v/get-all-vertices g)
+          grouped (q/query (q/V g)
                            (q/get-grouped-by! #(v/get % :lang) #(v/get % :name)))]
       (is (= (set (grouped nil))
              #{"vadas" "marko" "peter" "josh"}))
@@ -17,7 +19,7 @@
 (deftest test-group-by
   (testing "g.V().groupBy{it.get().value('name')[1]}"
     (let [g (u/classic-tinkergraph)
-          grouped (q/query (v/get-all-vertices g)
+          grouped (q/query (q/V g)
                            (q/group-by #(get (v/get % :name) 1))
                            q/into-vec!
                            first
@@ -27,7 +29,7 @@
 
   (testing "g.V().groupBy{it.get().value('name')[1]}{it.get().value('name')}"
     (let [g (u/classic-tinkergraph)
-          grouped (q/query (v/get-all-vertices g)
+          grouped (q/query (q/V g)
                            (q/group-by #(get (v/get % :name) 1) #(v/get % :name))
                            q/into-vec!
                            first
@@ -36,7 +38,7 @@
 
   (testing "g.V().groupBy{it.get().value('name')[1]}{it.get().value('name')}{it.size()}"
     (let [g (u/classic-tinkergraph)
-          grouped (q/query (v/get-all-vertices g)
+          grouped (q/query (q/V g)
                            (q/group-by #(get (v/get % :name) 1) #(v/get % :name) count)
                            q/into-vec!
                            first

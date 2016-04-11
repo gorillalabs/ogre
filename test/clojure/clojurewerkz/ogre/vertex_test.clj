@@ -21,7 +21,7 @@
 (deftest test-simple-property-mutation
   (let [g (u/new-tinkergraph)
         u (v/create-with-id! g 100 {:name "v1" :a 1 :b 1})]
-    (v/assoc! u {:b 2})
+    (v/assoc! u :b 2)
     (v/dissoc! u :a)
     (is (= (list 1 2) (v/get u :b)))
     (is (= nil (v/get u :a)))
@@ -30,7 +30,7 @@
 (deftest test-multiple-property-mutation
   (let [g (u/new-tinkergraph)
         u (v/create-with-id! g 100 {:name "v1" :a 0 :b 2})]
-    (v/assoc! u {:a 1 :b 2 :c 3})
+    (v/assoc! u :a 1 :b 2 :c 3)
     (is (= (list 0 1) (v/get u :a)))
     (is (= (list 2 2) (v/get u :b)))
     (is (= 3 (v/get u :c)))))
@@ -120,8 +120,8 @@
           v1-b (v/upsert-with-id! g 101 :first-name {:first-name "Zack" :last-name "Maril" :age 22})
           v2 (v/upsert-with-id! g 102 :first-name {:first-name "Brooke" :last-name "Maril" :age 19})]
       (is (= 22
-            (last (v/get (first v1-a) :age))
-            (last (v/get (first v1-b) :age))))
+             (v/get (first v1-a) :age)
+             (v/get (first v1-b) :age)))
 
       (v/upsert-with-id! g 103 :last-name {:last-name "Maril"
                                            :heritage "Some German Folks"})
@@ -138,8 +138,8 @@
           v2 (v/upsert! g :first-name {:first-name "Brooke" :last-name "Maril" :age 19})]
 
       (is (= 22
-            (last (v/get (first v1-a) :age))
-            (last (v/get (first v1-b) :age))))
+             (v/get (first v1-a) :age)
+             (v/get (first v1-b) :age)))
 
       (v/upsert! g :last-name {:last-name "Maril"
                                :heritage "Some German Folks"})

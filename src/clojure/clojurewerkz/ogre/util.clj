@@ -10,16 +10,13 @@
     (instance? GraphTraversal ~t) (~method ~(vary-meta t assoc :tag `GraphTraversal) ~@args)))
 
 ;TODO this should probably be temporary
-(defn- make-traversal-source [g]
-  (.V (.traversal g) (to-array [])))
-
 (defn ensure-traversal-source
   "takes a graph, vertex or traversal source, and returns a traversal source"
   [g]
   (if (instance? Graph g)
-    (make-traversal-source g)
+    (.traversal g)
     (if (instance? Vertex g)
-      (make-traversal-source (.graph g)) 
+      (.traversal (.graph g)) 
       g)))
 
 (defn as

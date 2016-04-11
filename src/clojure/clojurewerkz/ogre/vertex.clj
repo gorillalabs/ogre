@@ -15,6 +15,7 @@
 (po/import-fn el/assoc!)
 (po/import-fn el/dissoc!)
 (po/import-fn el/clear!)
+(po/import-fn el/merge!)
 
 ;;
 ;;Transaction management
@@ -23,7 +24,7 @@
 (defn refresh
   "Gets a vertex back from the database and refreshes it to be usable again."
   [^Graph g ^Vertex vertex]
-  (.V g (.id vertex)))
+  (.next (.vertices g (to-array [(.id vertex)]))))
 
 ;;
 ;; Removal methods
@@ -57,12 +58,12 @@
 (defn find-by-kv
   "Given a key and a value, returns the set of all vertices that satisfy the pair."
   [^Graph g k ^Vertex v]
-  (-> g ensure-traversal-source (.V (into-array [])) (.has (name k) v)))
+  (.has (.V (.traversal g) (to-array [])) (name k) v))
 
 (defn get-all-vertices
   "Returns all vertices."
   [^Graph g]
-  (.V (ensure-traversal-source g) (into-array [])))
+  (.vertices g (into-array [])))
 
 (defn edges-of
   "Returns edges that this vertex is part of with direction and with given labels."
@@ -132,7 +133,7 @@
     (if (empty? vertices)
       (set [(create! g m)])
       (do
-        (doseq [vertex vertices] (assoc! vertex m))
+        (doseq [vertex vertices] (merge! vertex m))
         vertices))))
 
 (defn unique-upsert!
@@ -157,7 +158,7 @@
     (if (empty? vertices)
       (set [(create-with-id! g id m)])
       (do
-        (doseq [vertex vertices] (assoc! vertex m))
+        (doseq [vertex vertices] (merge! vertex m))
         vertices))))
 
 (defn unique-upsert-with-id!

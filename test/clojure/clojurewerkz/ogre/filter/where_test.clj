@@ -11,10 +11,9 @@
               where('a', neq, 'c').
                select(['a','c']).by('name')"
     (let [g (u/classic-tinkergraph)
-          vs (q/query (v/get-all-vertices g)
-                      (q/match :a
-                        :a (-> (q/out [:created]) (q/as :b))
-                        :b (-> (q/in [:created]) (q/as :c)))
+          vs (q/query (q/V g)
+                      (q/match :a (-> (q/out :created) (q/as :b))
+                               :b (-> (q/in [:created]) (q/as :c)))
                       (q/where not= :a :c)
                       (q/select-only [:a :c])
                       (q/by "name")
@@ -30,11 +29,10 @@
               where(g.of().as('a').out('knows').as('c')).
                select(['a','c']).by('name')"
     (let [g (u/classic-tinkergraph)
-          vs (q/query (v/get-all-vertices g)
-                      (q/match :a
-                        :a (-> (q/out [:created]) (q/as :b))
-                        :b (-> (q/in [:created]) (q/as :c)))
-                      (q/where (-> (q/as :a) (q/out [:knows]) (q/as :c)))
+          vs (q/query (q/V g)
+                      (q/match :a (-> (q/out :created) (q/as :b))
+                               :b (-> (q/in [:created]) (q/as :c)))
+                      (q/where (-> (q/as :a) (q/out :knows) (q/as :c)))
                       (q/select-only [:a :c])
                       (q/by "name")
                       q/first-into-map!
