@@ -99,8 +99,10 @@
 
 (defn select-only
   "Select the named steps to emit, with optional functions for post processing round robin style."
-  ([^Traversal t cols]
-    (typed-traversal .select t (keywords-to-str-array cols))))
+  ([^GraphTraversal t col1]
+   (typed-traversal .select t (name col1)))
+  ([^GraphTraversal t col1 col2 & cols]
+   (typed-traversal .select t (name col1) (name col2) (keywords-to-str-array cols))))
 
 (defn shuffle
   "Collect all items in the traversal and randomize their order before emitting."

@@ -1,7 +1,7 @@
 (ns clojurewerkz.ogre.util
   (:import (org.apache.tinkerpop.gremlin.structure  Direction  Graph Vertex)
            (java.util.function Function Consumer Predicate BiPredicate BiFunction)
-           (org.apache.tinkerpop.gremlin.process.traversal.dsl.graph  GraphTraversal)
+           (org.apache.tinkerpop.gremlin.process.traversal.dsl.graph  GraphTraversal __)
            (org.apache.tinkerpop.gremlin.process.traversal Traversal P)))
 
 (defmacro typed-traversal
@@ -44,7 +44,7 @@
 
 ;; todo: this should be temporary - anon-traversal is kinda ugly
 (defn anon-traversal
-  [] )
+  [] (__/start))
 
 (defn ^"[Ljava.lang.String;" str-array [strs]
   "Converts a collection of strings to a java String array."

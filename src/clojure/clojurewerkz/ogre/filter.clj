@@ -106,6 +106,6 @@
 (defmacro where
   "Further constrain results from match with a binary predicate or traversal."
   ([^Traversal t pred a b]
-   `(typed-traversal .where ~t (name ~a) (name ~b) (f-to-bipredicate ~pred)))
+   `(typed-traversal .where ~t (name ~a) ((f-to-compare ~pred) (name ~b))))
   ([^Traversal t constraint]
    `(typed-traversal .where ~t (-> (anon-traversal) ~constraint))))
