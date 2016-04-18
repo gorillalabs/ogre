@@ -8,7 +8,7 @@
   (testing "Laziness!"
     (let [state (atom [])
           g (u/classic-tinkergraph)
-          vs (q/query (v/find-by-id g (int 1))
+          vs (q/query (q/V g (int 1))
                       q/-->
                       (q/side-effect (partial swap! state conj))
                       (q/values :name)

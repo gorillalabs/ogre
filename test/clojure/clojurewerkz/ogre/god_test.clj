@@ -38,7 +38,7 @@
     (e/connect! hercules :battled nemean {:times 1})
     (e/connect! hercules :battled hydra {:times 2})
     (e/connect! hercules :battled cerberus {:times 12})
-    (let [r0 (q/query (v/get-all-vertices g)
+    (let [r0 (q/query (q/V g)
                       (q/has :type "human")
                       q/count!)
           r1 (q/query saturn
@@ -47,7 +47,7 @@
                       q/into-vec!
                       first)
           r2 (q/query hercules
-                      (q/--> [:father :mother])
+                      (q/--> :father :mother)
                       (q/values :name)
                       q/into-set!)
           r3 (q/query hercules
@@ -62,7 +62,7 @@
                       q/in-vertex
                       q/count!)
           r4 (q/query pluto
-                      (q/--> [:lives])
+                      (q/--> :lives)
                       (q/<-- [:lives])
                       (q/except [pluto])
                       (q/values :name)

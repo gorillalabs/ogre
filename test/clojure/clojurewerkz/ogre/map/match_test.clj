@@ -12,9 +12,9 @@
             g.of().as('c').has('age', 29)).
           select(['a', 'c']).by('name')"
     (let [g (u/classic-tinkergraph)
-          vs (q/query (v/get-all-vertices g)
+          vs (q/query (q/V g)
                       (q/match :a
-                        :a (-> (q/out [:created]) (q/as :b))
+                               :a (-> (q/out :created) (q/as :b))
                         :b (q/has :name "lop")
                         :b (-> (q/in [:created]) (q/as :c))
                         :c (q/has :age (int 29)))

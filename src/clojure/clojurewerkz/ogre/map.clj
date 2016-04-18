@@ -2,7 +2,7 @@
   (:refer-clojure :exclude [map key shuffle])
   (:import (org.apache.tinkerpop.gremlin.structure Element)
            (org.apache.tinkerpop.gremlin.process.traversal.dsl.graph GraphTraversal)
-           (org.apache.tinkerpop.gremlin.process.traversal Traverser Traversal)
+           (org.apache.tinkerpop.gremlin.process.traversal Order Traverser Traversal)
            (org.apache.tinkerpop.gremlin.process.traversal.step.map MapStep))
   (:require [clojurewerkz.ogre.util :refer (f-to-function fs-to-function-array keywords-to-str-array keywords-to-str-list f-to-bifunction typed-traversal anon-traversal as)]))
 
@@ -30,11 +30,7 @@
 (defn label
   "Gets the label of an element."
   ([^GraphTraversal t]
-   (let [step (doto (MapStep. t)
-                (.setFunction (f-to-function
-                               (fn [^Traverser t]
-                                 (keyword (.label ^Element (.get t)))))))]
-     (.addStep t step))))
+   (.label t)))
 
 (defn local
   "Allows a traversal to operate on a single element within a stream."
@@ -55,6 +51,11 @@
                                            ~m))))))
 
 
+
+(def keyword->order {:decr Order/decr
+                      :incr Order/incr})
+
+
 ;; todo: how best to resolve varargs overload to order
 (defn order
   "Orders the items in the traversal according to the specified comparator
@@ -62,12 +63,10 @@
   [^Traversal t] (.order t))
 
 (defn by
-  ([^Traversal t]
-    (typed-traversal .by t))
-  ([^Traversal t arg]
-   (if (keyword? arg)
-     (typed-traversal .by t (name arg))
-     (typed-traversal .by t arg))))
+  ([^Traversal t direction]
+    (typed-traversal .by t (direction keyword->order)))
+  ([^Traversal t property direction]
+   (typed-traversal .by t (name property) (direction keyword->order))))
 
 ;; orderBy
 
@@ -84,7 +83,7 @@
 (defn properties
   "Gets the properties of an element."
   ([^Traversal t & keys]
-    (typed-traversal .values t (keywords-to-str-array keys))))
+    (typed-traversal .properties t (keywords-to-str-array keys))))
 
 ;; propertyMap
 
@@ -98,7 +97,7 @@
     (typed-traversal .select t (fs-to-function-array f))))
 
 (defn select-only
-  "Select the named steps to emit, with optional functions for post processing round robin style."
+  "Select the named steps to emit."
   ([^GraphTraversal t col1]
    (typed-traversal .select t (name col1)))
   ([^GraphTraversal t col1 col2 & cols]

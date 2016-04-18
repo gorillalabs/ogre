@@ -8,7 +8,7 @@
 (deftest test-has-step
   (testing "g.V().has('name','marko')"
     (let [g (u/classic-tinkergraph)
-          vs (q/query (v/get-all-vertices g)
+          vs (q/query (q/V g)
                       (q/has :name "marko")
                       q/into-vec!)]
       (is (= 1 (count vs)))
@@ -16,14 +16,14 @@
 
   (testing "g.V().has('name','blah')"
     (let [g (u/classic-tinkergraph)
-          vs (q/query (v/get-all-vertices g)
+          vs (q/query (q/V g)
                       (q/has :name "blah")
                       q/into-vec!)]
       (is (= 0 (count vs)))))
 
   (testing "g.V().has('name')"
     (let [g (u/classic-tinkergraph)
-          vs (q/query (v/get-all-vertices g)
+          vs (q/query (q/V g)
                       (q/has :name)
                       q/into-vec!)]
       (is (= 6 (count vs)))
@@ -40,7 +40,7 @@
 
   (testing "g.V().has('age',Compare.gte,30)"
     (let [g (u/classic-tinkergraph)
-          vs (q/query (v/get-all-vertices g)
+          vs (q/query (q/V g)
                       (q/has :age > (int 30))
                       q/into-vec!)]
       (is (= 2 (count vs)))
@@ -48,7 +48,7 @@
 
   (testing "g.V().has('location','aachen') where location is a list"
     (let [g (u/crew-tinkergraph)
-          vs (q/query (v/get-all-vertices g)
+          vs (q/query (q/V g)
                       (q/has :location "aachen")
                       q/into-vec!)]
       (is (= 1 (count vs)))
@@ -56,7 +56,7 @@
 
   (testing "g.V().has('location',Contains.within,['aachen', 'san diego', 'brussels'])"
     (let [g (u/crew-tinkergraph)
-          vs (q/query (v/get-all-vertices g)
+          vs (q/query (q/V g)
                       (q/has :location #(contains? %2 %1) #{"aachen", "san diego", "brussels"})
                       q/into-vec!)]
       (is (= 2 (count vs)))
@@ -64,7 +64,7 @@
 
   (testing "has-not by value"
     (let [g (u/classic-tinkergraph)
-          vs (q/query (v/get-all-vertices g)
+          vs (q/query (q/V g)
                       (q/has-not :age (int 29))
                       q/into-vec!)]
       (is (= 3 (count vs)))
@@ -72,7 +72,7 @@
 
   (testing "has by unary predicate"
     (let [g (u/classic-tinkergraph)
-          vs (q/query (v/get-all-vertices g)
+          vs (q/query (q/V g)
                       (q/has :age odd?)
                       q/into-vec!)]
       (is (= 3 (count vs)))
@@ -80,7 +80,7 @@
 
   (testing "has-not by unary predicate"
     (let [g (u/classic-tinkergraph)
-          vs (q/query (v/get-all-vertices g)
+          vs (q/query (q/V g)
                       (q/has-not :age odd?)
                       q/into-vec!)]
       (is (= 1 (count vs)))
@@ -88,7 +88,7 @@
 
   (testing "has-not by binary predicate"
     (let [g (u/classic-tinkergraph)
-          vs (q/query (v/get-all-vertices g)
+          vs (q/query (q/V g)
                       (q/has-not :age > (int 28))
                       q/into-vec!)]
       (is (= 1 (count vs)))

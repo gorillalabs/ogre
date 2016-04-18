@@ -7,7 +7,7 @@
 (deftest test-coin-step
   (testing "g.v(1).out().coin(0)"
     (let [g (u/classic-tinkergraph)
-          vs (q/query (v/find-by-id g (int 1))
+          vs (q/query (q/V g (int 1))
                       q/-->
                       (q/coin 0)
                       q/into-vec!)]
@@ -15,7 +15,7 @@
 
   (testing "g.v(1).out().coin(1)"
     (let [g (u/classic-tinkergraph)
-          vs (q/query (v/find-by-id g (int 1))
+          vs (q/query (q/V g (int 1))
                q/-->
                (q/coin 1)
                q/into-vec!)]
@@ -23,7 +23,7 @@
 
   (testing "g.v(1).out().coin(0.5)"
     (let [g (u/classic-tinkergraph)
-          vs (q/query (v/find-by-id g (int 1))
+          vs (q/query (q/V g (int 1))
                q/-->
                (q/coin 0.5)
                q/into-vec!)

@@ -3,14 +3,15 @@
             [clojurewerkz.ogre.io :as io]
             [clojurewerkz.ogre.vertex :as v]
             [clojurewerkz.ogre.edge :as e]
+            [clojurewerkz.ogre.core :as q]
             [clojurewerkz.ogre.test-util :as u])
   (:import [java.io File]))
 
 (defn- has-n-vertices [g n]
-  (is (= n (count (seq (.toList (.V g (into-array []))))))))
+  (is (= n (count (q/query (q/V g) q/into-set!)))))
 
 (defn- has-n-edges [g n]
-  (is (= n (count (seq (.toList (.E g (into-array []))))))))
+  (is (= n (count (q/query (q/E g) q/into-set!)))))
 
 (defn- make-test-graph
   []

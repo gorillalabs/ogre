@@ -19,11 +19,6 @@
       (.traversal (.graph g)) 
       g)))
 
-(defn as
-  "Assigns a name to the previous step in a traversal."
-  [^Traversal t label & labels]
-  (typed-traversal .as t ^String (name label) (into-array String labels)))
-
 (defmacro query
   "Starts a query."
   [xs & body]
@@ -58,6 +53,11 @@
 (defn ^java.util.ArrayList keywords-to-str-list [strs]
   "Converts a collection of keywords to a java List of Strings."
   (java.util.ArrayList. ^java.util.Collection  (mapv name strs)))
+
+(defn as
+  "Assigns a name to the previous step in a traversal."
+  [^Traversal t label & labels]
+  (typed-traversal .as t ^String (name label) (keywords-to-str-array labels)))
 
 (defn prop-map-to-array [m]
   "Converts a property map to a java Object array."

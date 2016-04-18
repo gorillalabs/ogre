@@ -6,8 +6,8 @@
 
 (deftest test-label-step
   (testing "g.v(1).outE().label()"
-    (let [names (q/query (v/find-by-id (u/classic-tinkergraph) (int 1))
+    (let [names (q/query (q/V (u/classic-tinkergraph) (int 1))
                          q/-E>
                          q/label
                          q/into-vec!)]
-      (is (= [:created :knows :knows] names)))))
+      (is (= [:created :knows :knows] (map keyword names))))))

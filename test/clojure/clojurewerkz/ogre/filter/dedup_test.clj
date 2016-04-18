@@ -7,7 +7,7 @@
 (deftest test-dedup-step
   (testing "g.V().both().dedup().values('name')"
     (let [g (u/classic-tinkergraph)
-          names (q/query (v/get-all-vertices g)
+          names (q/query (q/V g)
                          q/<->
                          q/dedup
                          (q/values :name)
@@ -16,7 +16,7 @@
 
   (testing "g.V().both().dedup{it.get().value('lang','')}.values('name')"
     (let [g (u/classic-tinkergraph)
-          names (q/query (v/get-all-vertices g)
+          names (q/query (q/V g)
                          q/<->
                          (q/dedup #(v/get % :lang))
                          (q/values :name)

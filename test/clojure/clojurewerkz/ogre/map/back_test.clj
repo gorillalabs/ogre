@@ -7,7 +7,7 @@
 (deftest test-back-step
   (testing "g.v(1).as('here').out().back('here')"
     (let [g (u/classic-tinkergraph)
-          vs (q/query (v/find-by-id g (int 1))
+          vs (q/query (q/V g (int 1))
                       (q/as :here)
                       q/-->
                       (q/back :here)
@@ -17,7 +17,7 @@
 
   (testing "g.v(4).out().as('here').filter{it.get().value('lang','') == 'java'}.back('here')"
     (let [g (u/classic-tinkergraph)
-          vs (q/query (v/find-by-id g (int 4))
+          vs (q/query (q/V g (int 4))
                       q/-->
                       (q/as :here)
                       (q/filter #(= "java" (v/get % :lang)))
@@ -28,7 +28,7 @@
 
   (testing "g.v(4).out().as('here').filter{it.get().value('lang','') == 'java'}.back('here').values('name')"
     (let [g (u/classic-tinkergraph)
-          names (q/query (v/find-by-id g (int 4))
+          names (q/query (q/V g (int 4))
                          q/-->
                          (q/as :here)
                          (q/filter #(= "java" (v/get % :lang)))

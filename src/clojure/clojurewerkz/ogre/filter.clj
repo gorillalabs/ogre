@@ -2,7 +2,7 @@
   (:refer-clojure :exclude [filter and or range])
   (:import
     (java.util Collection)
-    (org.apache.tinkerpop.gremlin.process.traversal Traversal Compare))
+    (org.apache.tinkerpop.gremlin.process.traversal P Traversal Compare))
   (:require [clojurewerkz.ogre.util :refer (f-to-function f-to-predicate typed-traversal f-to-bipredicate anon-traversal f-to-compare)]))
 
 (defn cyclic-path
@@ -61,7 +61,7 @@
      (. t has (cast-param k) (cast-param pred) (cast-param v))
      (if-let [c (f-to-compare pred)]
        (typed-traversal .has t (cast-param k) ^Compare (c v))
-       (typed-traversal .has t (cast-param k) (f-to-bipredicate pred) v)))))
+       (typed-traversal .has t (cast-param k) (P. (f-to-bipredicate pred) v))))))
 
 (defn has-not
   "Allows an element if it does not have the given property."
