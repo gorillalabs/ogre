@@ -109,3 +109,14 @@
    `(typed-traversal .where ~t (name ~a) ((f-to-compare ~pred) (name ~b))))
   ([^Traversal t constraint]
    `(typed-traversal .where ~t (-> (anon-traversal) ~constraint))))
+
+(defmacro or [^Traversal t & filters]
+  (let [filter-traversals (reduce #(conj %1 `(-> (anon-traversal) ~%2)) [] filters)]
+    `(.or ~t (into-array Traversal ~filter-traversals))))
+
+
+
+
+
+
+
