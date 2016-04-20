@@ -11,9 +11,13 @@
                                    [k `(-> (anon-traversal) ~v)]))
                         m)))
   ([^Traversal t pred true-choice false-choice]
-   `(typed-traversal .choose ~t (f-to-predicate ~pred)
-                     (-> (anon-traversal) ~true-choice)
-                     (-> (anon-traversal) ~false-choice))))
+   (if (fn? pred)
+     `(typed-traversal .choose ~t (f-to-predicate ~pred)
+                       (-> (anon-traversal) ~true-choice)
+                       (-> (anon-traversal) ~false-choice))
+     `(typed-traversal .choose ~t (-> (anon-traversal)  ~pred)
+                       (-> (anon-traversal) ~true-choice)
+                       (-> (anon-traversal) ~false-choice)))))
 
 ;; jump
 ;; until
