@@ -82,7 +82,6 @@
 ;; clojurewerkz.ogre.traversal steps
 (po/import-fn traversal/V)
 (po/import-fn traversal/E)
-(po/import-fn traversal/out)
 (po/import-fn traversal/outV)
 (po/import-fn traversal/outE)
 (po/import-fn traversal/has-id)

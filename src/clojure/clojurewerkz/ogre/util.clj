@@ -6,8 +6,7 @@
 
 (defmacro typed-traversal
   [method ^Traversal t & args]
-  `(cond
-    (instance? GraphTraversal ~t) (~method ~(vary-meta t assoc :tag `GraphTraversal) ~@args)))
+  `(~method ~(vary-meta t assoc :tag `GraphTraversal) ~@args))
 
 ;TODO this should probably be temporary
 (defn ensure-traversal-source
