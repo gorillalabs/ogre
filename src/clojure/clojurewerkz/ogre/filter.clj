@@ -55,8 +55,6 @@
      (has t k (fn [v _] (v-or-pred v)) :dummy)
      (typed-traversal .has t (cast-param k) v-or-pred)))
   ([^Traversal t k pred v]
-    ;check for t.has(label, key, value)
-   (println (clojure.string/join " " ["k" k "pred" pred "v" v]))
    (if (clojure.core/and (string-or-keyword k) (string-or-keyword pred) (string-or-keyword v))
      (. t has (cast-param k) (cast-param pred) (cast-param v))
      (if-let [c (f-to-compare pred)]
