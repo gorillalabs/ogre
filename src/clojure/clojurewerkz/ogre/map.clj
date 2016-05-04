@@ -44,7 +44,7 @@
 (defmacro match
   "Pattern match traversals from current step onwards. Can introduce new labels."
   [^Traversal t & matches]
-  `(typed-traversal .match ~t 
+  `(typed-traversal .match ~t
                     (into-array ~(vec (for [[label m] (partition 2 matches)]
                                         `(-> (anon-traversal)
                                            (as ~label)
@@ -63,12 +63,17 @@
   [^Traversal t] (.order t))
 
 (defn by
+    ([^Traversal t]
+         (typed-traversal .by t))
+    ([^Traversal t arg]
+         (typed-traversal .by t arg)))
+
+ ; orderBy
+(defn order-by
   ([^Traversal t direction]
     (typed-traversal .by t (direction keyword->order)))
   ([^Traversal t property direction]
    (typed-traversal .by t (name property) (direction keyword->order))))
-
-;; orderBy
 
 (defn other-v
   "Gets the other vertex of an edge depending on which vertex a traversal started on."

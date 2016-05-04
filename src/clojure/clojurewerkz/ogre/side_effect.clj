@@ -21,6 +21,11 @@
   "Count elements in the traversal."
   ([^Traversal t] (typed-traversal .count t)))
 
+(defn is
+  "Filter the E object if it not equal to the provided value"
+  ([^Traversal t v] (typed-traversal .is t v)))
+
+
 (defn get-capped!
   "Returns the value of the previous step."
   ([^Traversal t] (t/next! (cap t)))
