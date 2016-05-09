@@ -71,9 +71,9 @@
  ; orderBy
 (defn order-by
   ([^Traversal t direction]
-    (typed-traversal .by t (direction keyword->order)))
+   (typed-traversal .by (.order t) (direction keyword->order)))
   ([^Traversal t property direction]
-   (typed-traversal .by t (name property) (direction keyword->order))))
+   (typed-traversal .by (.order t) (name property) (direction keyword->order))))
 
 (defn other-v
   "Gets the other vertex of an edge depending on which vertex a traversal started on."
