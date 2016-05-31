@@ -47,8 +47,8 @@
         a (v/create-with-id! g 100 {:a 1})
         b (v/create-with-id! g 101)
         c (e/connect-with-id! 102 a :label b {:a 1})]
-    (v/assoc! a {:a 10})
-    (e/assoc! c {:a 10})
+    (v/assoc! a :a 10)
+    (e/assoc! c :a 10)
     (is (= (list 1 10) (v/get a :a)))
     (is (= 10 (v/get c :a)))))
 

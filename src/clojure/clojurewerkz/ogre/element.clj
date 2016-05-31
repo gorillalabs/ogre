@@ -14,8 +14,8 @@
     ([item key]
       (get item key nil))
     ([item key not-found]
-      (let [^java.util.Iterator prop-iter (-> item (.properties (keywords-to-str-array [key])))
-            prop (if (.hasNext prop-iter) (map #(.value ^Property %) (iterator-seq prop-iter)) (list not-found))]
+     (let [^java.util.Iterator prop-iter (-> item (.properties (keywords-to-str-array [key])))
+           prop (if (.hasNext prop-iter) (map #(.value %) (iterator-seq prop-iter)) (list not-found))]
         (if (= (count prop) 1) (first prop) prop))))
 
   Traverser

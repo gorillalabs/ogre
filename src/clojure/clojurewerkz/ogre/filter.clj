@@ -15,9 +15,9 @@
   "Filters out repeated objects. A function can be supplied that provides the
   values that the traversal will consider when filtering."
   ([^Traversal t]
-   (typed-traversal .dedup t))
-  ([^Traversal t f]
-   (typed-traversal #(.by (.dedup %) (f-to-function f)) t)))
+   (dedup t []))
+  ([^Traversal t dedup-labels]
+   (typed-traversal .dedup t (into-array String dedup-labels))))
 
 (defn except
   "Filters out the given objects."
