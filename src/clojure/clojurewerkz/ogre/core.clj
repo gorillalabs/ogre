@@ -1,5 +1,5 @@
 (ns clojurewerkz.ogre.core
-  (:refer-clojure :exclude [filter and or range count iterate next map loop reverse group-by key shuffle])
+  (:refer-clojure :exclude [filter and or range count iterate next map loop reverse group-by key shuffle repeat])
   (:require [potemkin :as po]
             [clojurewerkz.ogre.util :as util :refer (keywords-to-str-array typed-traversal ensure-traversal-source)]
             [clojurewerkz.ogre.filter :as filter]
@@ -101,6 +101,9 @@
 (po/import-fn traversal/into-set!)
 (po/import-fn traversal/iterate!)
 (po/import-fn traversal/next!)
+(po/import-macro traversal/repeat)
+(po/import-fn traversal/emit)
+(po/import-fn traversal/times)
 
 ;; clojurewerkz.ogre.side-effect steps
 (po/import-fn side-effect/aggregate)

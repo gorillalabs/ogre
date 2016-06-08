@@ -72,6 +72,7 @@
   ([^Traversal t k pred v]
    (has t k (complement pred) v)))
 
+
 (defn interval
   "Allows elements to pass that have their property in the given start and end interval."
   [^Traversal t key ^Comparable start ^Comparable end]

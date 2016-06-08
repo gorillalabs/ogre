@@ -1,9 +1,9 @@
 (ns clojurewerkz.ogre.traversal
-  (:refer-clojure :exclude [iterate])
+  (:refer-clojure :exclude [iterate repeat])
   (:import (org.apache.tinkerpop.gremlin.process.traversal Traversal)
            (java.util Iterator)
            (org.apache.tinkerpop.gremlin.process.traversal.dsl.graph GraphTraversal))
-  (:require [clojurewerkz.ogre.util :refer (convert-to-map typed-traversal)]
+  (:require [clojurewerkz.ogre.util :refer (convert-to-map typed-traversal anon-traversal)]
             [clojurewerkz.ogre.util :as util]))
 
 (defn values
@@ -133,3 +133,19 @@
   "Returns the number of objects currently in the traversal."
   [^Traversal t]
   (next! (typed-traversal .count t)))
+
+(defn emit
+  ([^GraphTraversal t]
+   (.emit t))
+  ([^GraphTraversal t pred-or-t]
+   (if  (instance? Traversal pred-or-t)
+     (.emit t ^Traversal pred-or-t)
+     (.emit t  (util/f-to-predicate pred-or-t)))))
+
+(defmacro repeat
+  [^GraphTraversal t repeat-traversal]
+  `(typed-traversal .repeat ~t (-> (anon-traversal) ~repeat-traversal)))
+
+(defn times
+    [^GraphTraversal t loops]
+    (.times t loops))
