@@ -38,6 +38,9 @@
                [t#]
                (typed-traversal ~j3 t#))))))
 
+(po/import-fn util/anon-traversal)
+(defn __ [] (anon-traversal))
+
 ;; clojurewerkz.ogre.util
 (po/import-fn util/as)
 (po/import-macro util/query)

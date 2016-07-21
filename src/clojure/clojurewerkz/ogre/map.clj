@@ -1,6 +1,6 @@
 (ns clojurewerkz.ogre.map
   (:refer-clojure :exclude [map key shuffle])
-  (:import (org.apache.tinkerpop.gremlin.structure Element)
+  (:import (org.apache.tinkerpop.gremlin.structure Element T)
            (org.apache.tinkerpop.gremlin.process.traversal.dsl.graph GraphTraversal)
            (org.apache.tinkerpop.gremlin.process.traversal Order Traverser Traversal)
            (org.apache.tinkerpop.gremlin.process.traversal.step.map MapStep))
@@ -62,11 +62,48 @@
   or the default order if not specified."
   [^Traversal t] (.order t))
 
+(defn cast-param
+  "Value is either a T, String, or keyword. If it's a keyword, pass the name."
+  [value]
+  (if (keyword value)
+    (name value)
+    value))
+#_(defn ^Function f-to-function [f]
+  "Converts a function to java.util.function.Function."
+  (reify Function
+    (apply [this arg] (f arg))))
+
 (defn by
-    ([^Traversal t]
-         (typed-traversal .by t))
-    ([^Traversal t arg]
-         (typed-traversal .by t arg)))
+  ([^GraphTraversal t]
+   (.by t))
+  ([^GraphTraversal t arg1]
+   (cond
+     (keyword? arg1)
+     (.by t ^String (cast-param arg1))
+     (instance? String arg1)
+     (.by t ^String arg1)
+     (instance? Order arg1)
+     (.by t ^Order arg1)
+     (instance? java.util.Comparator arg1)
+     (.by t ^java.util.Comparator arg1)
+     (instance? T arg1)
+     (.by t ^T arg1)
+     (instance? Traversal arg1)
+     (.by t ^Traversal arg1)))
+  ([^GraphTraversal t arg1 compar]
+   (if (identical? :fn compar)
+     (.by t (f-to-function arg1))
+     (cond
+       (keyword? arg1)
+       (.by t ^String (cast-param arg1) ^java.util.Comparator compar)
+       (instance? clojure.lang.IFn arg1)
+       (.by t (f-to-function arg1) ^java.util.Comparator compar)
+       (instance? T arg1)
+       (.by t ^T arg1 ^java.util.Comparator compar)
+       (instance? String arg1)
+       (.by t ^String arg1 ^java.util.Comparator compar)
+       (instance? Traversal arg1)
+       (.by t ^Traversal arg1 ^java.util.Comparator compar)))))
 
  ; orderBy
 (defn order-by
