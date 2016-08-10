@@ -1,11 +1,11 @@
-(defproject gorillalabs/ogre "3.0.2.0"
+(defproject gorillalabs/ogre "3.0.3.0"
   :description "Clojure dialect of the Gremlin graph processing language"
   :url "https://github.com/clojurewerkz/ogre"
   :license {:name "Eclipse Public License"
             :url "http://www.eclipse.org/legal/epl-v10.html"}
   :aot :all
   :dependencies [[org.clojure/clojure "1.7.0"]
-                 [potemkin "0.3.3"]
+                 [potemkin "0.4.3"]
                  [org.apache.tinkerpop/gremlin-core "3.0.1-incubating"]
                  [org.apache.tinkerpop/gremlin-test "3.0.1-incubating"  :scope "test" :exclusions [org.slf4j/slf4j-api]]
                  [org.apache.tinkerpop/tinkergraph-gremlin "3.0.1-incubating"  :scope "test" :exclusions [org.slf4j/slf4j-api]]]
