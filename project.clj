@@ -1,4 +1,4 @@
-(defproject gorillalabs/ogre "3.0.3.1-SNAPSHOT"
+(defproject gorillalabs/ogre "3.0.3.1"
 
   :description "Clojure dialect of the Gremlin graph processing language"
   :url "https://github.com/clojurewerkz/ogre"
