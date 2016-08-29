@@ -1,4 +1,5 @@
-(defproject gorillalabs/ogre "3.0.4.0"
+(defproject gorillalabs/ogre "3.0.4.1"
+
   :description "Clojure dialect of the Gremlin graph processing language"
   :url "https://github.com/clojurewerkz/ogre"
   :license {:name "Eclipse Public License"
@@ -6,16 +7,14 @@
   :aot :all
   :dependencies [[org.clojure/clojure "1.7.0"]
                  [potemkin "0.4.3"]
-                 [org.apache.tinkerpop/gremlin-core "3.0.1-incubating"]
-                 [org.apache.tinkerpop/gremlin-test "3.0.1-incubating"  :scope "test" :exclusions [org.slf4j/slf4j-api]]
-                 [org.apache.tinkerpop/tinkergraph-gremlin "3.0.1-incubating"  :scope "test" :exclusions [org.slf4j/slf4j-api]]]
+                 [org.apache.tinkerpop/gremlin-core "3.1.1-incubating"]
+                 [org.apache.tinkerpop/gremlin-test "3.1.1-incubating"  :scope "test" :exclusions [org.slf4j/slf4j-api]]
+                 [org.apache.tinkerpop/tinkergraph-gremlin "3.1.1-incubating"  :scope "test" :exclusions [org.slf4j/slf4j-api]]]
   :source-paths ["src/clojure"]
   :profiles {:dev    { :global-vars {*assert* true}
-                       :dependencies [[clojurewerkz/support "1.1.0" :exclusions [org.clojure/clojure]]
-                                      [commons-io/commons-io "2.4"]]}
-             :1.5    {:dependencies [[org.clojure/clojure "1.5.1"]]}
-             :1.7    {:dependencies [[org.clojure/clojure "1.7.0"]]}
-             :master {:dependencies [[org.clojure/clojure "1.8.0"]]}}
+                      :dependencies [[clojurewerkz/support "1.1.0" :exclusions [org.clojure/clojure]]
+                                     [commons-io/commons-io "2.4"]]}
+             :1.5    {:dependencies [[org.clojure/clojgit ojure "1.8.0"]]}}
   :aliases {"all" ["with-profile" "dev:dev,1.5:dev,1.7"]}
   :repositories {"sonatype" {:url "http://oss.sonatype.org/content/repositories/releases"
                              :snapshots false
