@@ -81,6 +81,7 @@
 (po/import-fn map/shuffle)
 (po/import-fn map/unfold)
 (po/import-fn map/values)
+(po/import-fn map/value-map)
 (po/import-macro map/match)
 
 ;; clojurewerkz.ogre.traversal steps

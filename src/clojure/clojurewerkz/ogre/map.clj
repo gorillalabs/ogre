@@ -162,3 +162,10 @@
   "Gets the property values of an element."
   ([^Traversal t & keys]
     (typed-traversal .values t (keywords-to-str-array keys))))
+
+(defn value-map
+  [^GraphTraversal t & args]
+  (if (clojure.core/and (clojure.core/not (empty? args)) (instance? Boolean (first args)))
+    (.valueMap t (first args) (keywords-to-str-array (rest args))))
+  (.valueMap t (keywords-to-str-array args)))
+
