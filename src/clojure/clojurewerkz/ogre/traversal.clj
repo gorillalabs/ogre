@@ -26,6 +26,13 @@
   [^GraphTraversal traversal & edge-labels]
   (.in traversal (util/keywords-to-str-array edge-labels)))
 
+(defn inV
+  [^GraphTraversal traversal]
+  (. traversal inV))
+
+(defn inE
+  [^GraphTraversal traversal & edge-labels]
+  (. traversal inE (util/keywords-to-str-array edge-labels)))
 
 (defn has-id
   [^GraphTraversal traversal & ids]
