@@ -1,4 +1,4 @@
-(defproject gorillalabs/ogre "3.0.4.1"
+(defproject gorillalabs/ogre "3.0.4.2-SNAPSHOT"
 
   :description "Clojure dialect of the Gremlin graph processing language"
   :url "https://github.com/clojurewerkz/ogre"
@@ -14,7 +14,7 @@
   :profiles {:dev    { :global-vars {*assert* true}
                       :dependencies [[clojurewerkz/support "1.1.0" :exclusions [org.clojure/clojure]]
                                      [commons-io/commons-io "2.4"]]}
-             :1.5    {:dependencies [[org.clojure/clojgit ojure "1.8.0"]]}}
+             :1.5    {:dependencies [[org.clojure/clojure "1.8.0"]]}}
   :aliases {"all" ["with-profile" "dev:dev,1.5:dev,1.7"]}
   :repositories {"sonatype" {:url "http://oss.sonatype.org/content/repositories/releases"
                              :snapshots false

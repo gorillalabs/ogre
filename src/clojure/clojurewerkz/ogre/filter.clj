@@ -113,6 +113,10 @@
   (let [filter-traversals (reduce #(conj %1 `(-> (anon-traversal) ~%2)) [] filters)]
     `(.or ~t (into-array Traversal ~filter-traversals))))
 
+(defmacro and [^Traversal t & filters]
+  (let [filter-traversals (reduce #(conj %1 `(-> (anon-traversal) ~%2)) [] filters)]
+    `(.and ~t (into-array Traversal ~filter-traversals))))
+
 
 
 

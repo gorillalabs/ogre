@@ -61,6 +61,7 @@
 (po/import-fn filter/simple-path)
 (po/import-macro filter/where)
 (po/import-macro filter/or)
+(po/import-macro filter/and)
 
 ;; clojurewerkz.ogre.map steps
 (po/import-fn map/back)

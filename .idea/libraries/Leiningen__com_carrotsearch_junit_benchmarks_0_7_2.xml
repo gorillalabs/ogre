@@ -1,9 +1,0 @@
-<component name="libraryTable">
-  <library name="Leiningen: com.carrotsearch/junit-benchmarks:0.7.2">
-    <CLASSES>
-      <root url="jar://$MAVEN_REPOSITORY$/com/carrotsearch/junit-benchmarks/0.7.2/junit-benchmarks-0.7.2.jar!/" />
-    </CLASSES>
-    <JAVADOC />
-    <SOURCES />
-  </library>
-</component>
