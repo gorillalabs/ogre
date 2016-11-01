@@ -324,7 +324,7 @@
          (.has t ^String arg1 ^P val-or-pred-or-t)
          (instance? Traversal val-or-pred-or-t)
          (.has t ^String arg1 ^Traversal val-or-pred-or-t)
-         :else (.has t ^String arg1 ^Object (util/cast-param val-or-pred-or-t)))
+         :else (.has t ^String arg1 ^Object val-or-pred-or-t))
        (instance? T arg1)
        (cond
          (instance? P val-or-pred-or-t)
@@ -337,7 +337,7 @@
          arg1 (util/cast-param label)]
      (if (instance? P val-or-pred)
        (.has t ^String arg1 ^String arg2 ^P val-or-pred)
-       (.has t ^String arg1 ^String arg2 ^Object (util/cast-param val-or-pred))))))
+       (.has t ^String arg1 ^String arg2 ^Object val-or-pred)))))
 
 (defn has-id
   [^GraphTraversal t & ids]

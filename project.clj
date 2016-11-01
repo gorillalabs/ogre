@@ -1,4 +1,4 @@
-(defproject gorillalabs/ogre "3.0.0.0-beta3"
+(defproject gorillalabs/ogre "3.0.0.0-beta4"
   :description "Clojure dialect of the Gremlin graph processing language"
   :url "https://github.com/clojurewerkz/ogre"
   :license {:name "Eclipse Public License"
