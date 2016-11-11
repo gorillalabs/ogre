@@ -331,7 +331,7 @@
          (.has t ^T arg1 ^P val-or-pred-or-t)
          (instance? Traversal val-or-pred-or-t)
          (.has t ^T arg1 ^Traversal val-or-pred-or-t)
-         :else (.has t ^T arg1 ^Object (util/cast-param val-or-pred-or-t))))))
+         :else (.has t ^T arg1 ^Object val-or-pred-or-t)))))
   ([^GraphTraversal t label k val-or-pred]
    (let [arg2 (util/cast-param k)
          arg1 (util/cast-param label)]

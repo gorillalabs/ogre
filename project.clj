@@ -5,7 +5,7 @@
             :url "http://www.eclipse.org/legal/epl-v10.html"}
   :aot :all
   :dependencies [[org.clojure/clojure "1.8.0"]
-                 [potemkin "0.3.3"]
+                 [potemkin "0.4.3"]
                  [org.apache.tinkerpop/gremlin-core "3.2.3"]
                  [org.apache.tinkerpop/gremlin-test "3.2.3"  :scope "test"]
                  [org.apache.tinkerpop/tinkergraph-gremlin "3.2.3" :scope "test"]
